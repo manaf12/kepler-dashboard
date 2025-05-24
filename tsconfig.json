@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    // pick up your custom types folder
+    "typeRoots": ["node_modules/@types", "src/types"]
+  },
+  "include": [  "src/**/*.{ts,tsx,js,jsx}",
+  "src/types/**/*.d.ts"],
+}
