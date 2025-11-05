@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import KeplerGl from '@kepler.gl/components';
 import { addDataToMap } from '@kepler.gl/actions';
+import KeplerGl from '@kepler.gl/components';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Chatbot from '../chatbot/Chatbot';
 
 // Free Mapbox token for testing purposes
 // Replace with your own token for production use
@@ -166,7 +167,7 @@ const MapVisualization: React.FC<MapVisualizationProps> = ({ className = '' }) =
   }, [dispatch, size.width, size.height]);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-full ${className}`}>
+    <div ref={containerRef} className={`relative w-screen h-screen overflow-hidden ${className}`}>
       {/* Only render KeplerGl when we have valid dimensions */}
       {size.width > 0 && size.height > 0 && (
         <KeplerGl
@@ -190,7 +191,7 @@ const MapVisualization: React.FC<MapVisualizationProps> = ({ className = '' }) =
 
       {/* Zoom Controls */}
       <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
-        <button 
+        <button
           className="w-8 h-8 bg-gray-800 rounded text-white hover:bg-gray-700 transition-colors"
           onClick={() => {
             dispatch({
@@ -201,7 +202,7 @@ const MapVisualization: React.FC<MapVisualizationProps> = ({ className = '' }) =
         >
           +
         </button>
-        <button 
+        <button
           className="w-8 h-8 bg-gray-800 rounded text-white hover:bg-gray-700 transition-colors"
           onClick={() => {
             dispatch({
@@ -224,7 +225,7 @@ const MapVisualization: React.FC<MapVisualizationProps> = ({ className = '' }) =
           </div>
         ))}
       </div>
-      
+
       <div className="absolute right-0 top-0 bottom-0 w-8 flex flex-col justify-between py-8 z-10">
         {['Evaluation'].map((label) => (
           <div key={label} className="flex flex-col items-center">
@@ -233,6 +234,9 @@ const MapVisualization: React.FC<MapVisualizationProps> = ({ className = '' }) =
             </span>
           </div>
         ))}
+      </div>
+      <div className="absolute bottom-0 right-16 z-[9999] pointer-events-auto">
+        <Chatbot />
       </div>
     </div>
   );

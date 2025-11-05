@@ -12,10 +12,10 @@
 // //   const [showChatbot, setShowChatbot] = useState(false);
 // //   const [showFilterControls, setShowFilterControls] = useState(true);
 // //   const [showSidebar, setShowSidebar] = useState(true);
-  
+
 // //   // For responsive design
 // //   const [isMobile, setIsMobile] = useState(false);
-  
+
 // //   React.useEffect(() => {
 // //     const checkMobile = () => {
 // //       setIsMobile(window.innerWidth < 768);
@@ -24,7 +24,7 @@
 // //         setShowSidebar(false);
 // //       }
 // //     };
-    
+
 // //     checkMobile();
 // //     window.addEventListener('resize', checkMobile);
 // //     return () => window.removeEventListener('resize', checkMobile);
@@ -33,17 +33,17 @@
 // //   return (
 // //     <div className="flex flex-col h-screen bg-black text-white">
 // //       <Header />
-      
+
 // //       <div className="flex-1 flex overflow-hidden relative">
 // //         {/* Left sidebar for filters */}
 // //         <FilterControls 
 // //           className={`h-full ${isMobile ? 'responsive-filter' : ''} ${!showFilterControls && isMobile ? 'hidden' : ''}`} 
 // //           isExpanded={!isMobile}
 // //         />
-        
+
 // //         {/* Optional chatbot panel */}
 // //         {showChatbot && <Chatbot className="h-full" />}
-        
+
 // //         {/* Main content area */}
 // //         <div className="flex-1 flex flex-col overflow-hidden">
 // //           {/* Tabs */}
@@ -85,11 +85,11 @@
 // //               Physical
 // //             </button>
 // //           </div>
-          
+
 // //           {/* Main content with map and optional KPI table */}
 // //           <div className="flex-1 relative overflow-hidden">
 // //             <MapPlaceholder className="absolute inset-0" />
-            
+
 // //             {/* Mobile controls */}
 // //             {isMobile && (
 // //               <div className="absolute top-4 left-4 z-10 flex space-x-2">
@@ -111,7 +111,7 @@
 // //                 </button>
 // //               </div>
 // //             )}
-            
+
 // //             {/* Chatbot toggle button */}
 // //             <div className="absolute bottom-16 left-4 z-10">
 // //               <button 
@@ -123,7 +123,7 @@
 // //                 </svg>
 // //               </button>
 // //             </div>
-            
+
 // //             {/* Evaluation button */}
 // //             <div className="absolute bottom-4 right-4 z-10 ">
 // //               <button 
@@ -137,7 +137,7 @@
 // //                 </svg>
 // //               </button>
 // //             </div>
-            
+
 // //             {/* KPI Table (conditionally rendered) */}
 // //             {showKpiTable && (
 // //               <div className="absolute inset-x-0 bottom-10 z-10 p-4 animate-fade-in-up">
@@ -146,7 +146,7 @@
 // //             )}
 // //           </div>
 // //         </div>
-        
+
 // //         {/* Right sidebar for stats */}
 // //         <Sidebar 
 // //           className={`h-full ${isMobile ? 'responsive-sidebar' : ''} ${!showSidebar && isMobile ? 'hidden' : ''}`} 
@@ -184,18 +184,30 @@
 
 // export default App;
 // src/App.tsx
-import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { LoginForm } from './components/Auth/Login';
+import { RegisterForm } from './components/Auth/Register';
 import MapVisualization from './components/map/MapVisualization';
+import { store } from './store';
+
+
+
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <div className="w-screen h-screen">
-        <MapVisualization />
-      </div>
-    </Provider>
+    <div className="w-screen h-screen">
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/map" element={<MapVisualization />} />
+          </Routes>
+        </Router>
+      </Provider>
+    </div>
+
   );
 };
 
